@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.0/socket.io.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+
+    <title>Document</title>
+</head>
+
+<body class="container ">
+    <h1 class="mt-5">MiniChat</h1>
+    <hr>
+
+    <form id="form">
+        <div class="row">
+            <div class="col-8">
+                <input type="text" name="mensaje" id="mensaje" class="form-control" autofocus />
+            </div>
+            <div class="col-4">
+                <button type="submit" class="btn btn-primary">Enviar</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="row">
+        <div class="col">
+            <ul id="misMensajes" class="mt-2"></ul>
+        </div>
+    </div>
+
+
+    <script>
+        const socket = io("http://localhost:3001");
+
+        const form = document.querySelector("#form");
+        const messages = document.querySelector("#misMensajes");
+        const message = document.querySelector("#mensaje");
+
+        form.addEventListener("submit", (evt) => {
+            evt.preventDefault();
+            const msg = message.value;
+            socket.emit("message-to-server", {
+                message: msg
+            });
+        });
+
+        socket.on("message-from-server", data => {
+            messages.innerHTML += `<li>${data.message}</li>`;
+        });
+        
+    </script>
+
+</body>
+
+</html>
