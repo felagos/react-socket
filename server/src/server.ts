@@ -2,6 +2,7 @@ import express from 'express';
 import http from 'http';
 import ioserver from 'socket.io';
 import { ENV } from './environment';
+import { BandList } from './model/band-list.model';
 import { Sockets } from './sockets';
 
 export class Server {
@@ -22,7 +23,7 @@ export class Server {
     }
 
     private configSockets() {
-        new Sockets(this.io);
+        new Sockets(this.io, new BandList());
     }
 
 }
