@@ -2,7 +2,7 @@ import { Band } from "./bande.model";
 
 export class BandList {
 
-    private _bands: Band[];
+    private _bands: Band[] = [];
 
     constructor() {
         this._bands.push(
