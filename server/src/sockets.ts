@@ -8,11 +8,6 @@ export class Sockets {
 
     private socketEvents() {
         this.io.on("connection", (socket) => {
-
-            socket.on("message-to-server", (data: any) => {
-                this.io.emit("message-from-server", data);
-            });
-
         });
     }
 
