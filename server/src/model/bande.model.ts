@@ -1,4 +1,4 @@
-import { v4 } from 'uuid';
+import { v4 as uuid } from 'uuid';
 
 export class Band {
 
@@ -8,7 +8,7 @@ export class Band {
 
     constructor(_name: string) {
         this._name = _name;
-        this._id = v4();
+        this._id = uuid();
         this._votes = 0;
     }
 
