@@ -12,11 +12,11 @@ const getClassType = type => {
     return "alert-primary";
 };
 
-export const Alert = ({ type, message, title }) => {
+export const Alert = ({ message, type }) => {
     const classAlert = getClassType(type);
     return (
         <div className={`alert ${classAlert}`} role="alert">
-            <strong>{title}</strong> {" "}
+            <strong>Server Status: </strong>
             <span>{message}</span>
         </div>
     )
