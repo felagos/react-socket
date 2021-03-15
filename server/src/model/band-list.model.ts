@@ -18,19 +18,19 @@ export class BandList {
     }
 
     public remove(id: string) {
-        this._bands = this._bands.filter(band => band.id !== id);
+        this._bands = this._bands.filter(band => band.getId !== id);
     }
 
     public increaseVote(id: string) {
         this._bands = this._bands.map(band => {
-            if(band.id === id) band.votes += 1;
+            if(band.getId === id) band.setVotes += 1;
             return band;
         });
     }
 
     public changeName(id: string, name: string) {
         this._bands = this._bands.map(band => {
-            if(band.id === id) band.name = name;
+            if(band.getId === id) band.setName = name;
             return band;
         });
     }

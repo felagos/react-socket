@@ -11,6 +11,7 @@ export class Sockets {
     private socketEvents() {
         this.io.on("connection", (socket) => {
             console.log("cliente conectado");
+            console.log(this._bandList.bands)
 
             socket.emit(SOCKET_EVENTS.CURRENT_BANDS, this._bandList.bands);
 

@@ -2,38 +2,39 @@ import { v4 as uuid } from 'uuid';
 
 export class Band {
 
-    private _id: string;
-    private _votes: number;
-    private _name: string;
+    private id: string;
+    private votes: number;
+    private name: string;
 
-    constructor(_name: string) {
-        this._name = _name;
-        this._id = uuid();
-        this._votes = 0;
+    constructor(name: string) {
+        this.name = name;
+        this.id = uuid();
+        this.votes = 0;
     }
 
-    public get id(): string {
-        return this._id;
+    public get getId(): string {
+        return this.id;
     }
 
-    public set id(id: string) {
-        this._id = id;
+    public set getId(id: string) {
+        this.id = id;
     }
 
-    public get votes(): number {
-        return this._votes;
+    public get getVotes(): number {
+        return this.votes;
     }
 
-    public set votes(votes: number) {
-        this._votes = votes;
+    public set setVotes(votes: number) {
+        this.votes = votes;
     }
 
-    public get name(): string {
-        return this._name;
+    public get getName(): string {
+        return this.name;
     }
 
-    public set name(name: string) {
-        this._name = name;
+    public set setName(name: string) {
+        this.name = name;
     }
+    
 
 }
