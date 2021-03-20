@@ -1,11 +1,13 @@
 import { useRef } from "react";
 
-export const BandAdd = () => {
+export const BandAdd = ({ handleAdd }) => {
     const inputRef = useRef();
 
     const onSubmit = evt => {
         evt.preventDefault();
         const { current: { value } } = inputRef;
+        if(value) handleAdd(value);
+        else alert("Debes ingresar un nombre !")
     }
 
     return (

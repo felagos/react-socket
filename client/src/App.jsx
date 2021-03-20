@@ -5,14 +5,15 @@ import { BandAdd } from "./components/BandAdd";
 import { BandList } from "./components/BandList";
 import { ENV } from "./environment";
 import { TYPE_ALERT } from './helpers/alert-types';
+import { SOCKET_EVENTS } from "./helpers/event-types";
 
-const connectSocketServer = () => io(ENV.SOCKET_SERVER, { transports: ["websocket"] })
+const connectSocketServer = () => io(ENV.SOCKET_SERVER, { transports: ["websocket"] });
 
 const App = () => {
-  console.log("aca")
   const [online, setOnline] = useState(false);
   const [socket] = useState(connectSocketServer());
-  const [alert, setAlert] = useState({ message: "Offline", type: TYPE_ALERT.DANGER })
+  const [alert, setAlert] = useState({ message: "Offline", type: TYPE_ALERT.DANGER });
+  const [bands, setBands] = useState([]);
 
   useEffect(() => {
     setOnline(socket.connected);
@@ -21,10 +22,10 @@ const App = () => {
   useEffect(() => {
     socket.on("connect", () => {
       setOnline(true);
-      setAlert({ message: "Online", type: TYPE_ALERT.SUCCESS });
+      setAlert({ message: "Online", type: TYPE_ALERT.INFO });
     });
 
-    return () => socket.disconnect()
+    return () => socket.disconnect();
 
   }, [socket]);
 
@@ -34,9 +35,27 @@ const App = () => {
       setAlert({ message: "Offline", type: TYPE_ALERT.DANGER });
     });
 
-    return () => socket.disconnect()
+    return () => socket.disconnect();
+
   }, [socket]);
 
+  useEffect(() => {
+    socket.on(SOCKET_EVENTS.CURRENT_BANDS, bands => {
+      setBands(bands);
+    });
+  }, [socket]);
+
+  const handleVote = id => {
+    socket.emit(SOCKET_EVENTS.VOTE_BAND, id);
+  }
+
+  const handleDelete = id => {
+    socket.emit(SOCKET_EVENTS.DELETE_BAND, id);
+  }
+
+  const handleAdd = name => {
+    socket.emit(SOCKET_EVENTS.ADD_BAND, name);
+  }
 
   return (
     <div className="container pt-2">
@@ -47,11 +66,11 @@ const App = () => {
 
       <div className="row">
         <div className="col-8">
-          <BandList />
+          <BandList data={bands} handleVote={handleVote} handleDelete={handleDelete} />
         </div>
 
         <div className="col-4">
-          <BandAdd />
+          <BandAdd handleAdd={handleAdd} />
         </div>
       </div>
 

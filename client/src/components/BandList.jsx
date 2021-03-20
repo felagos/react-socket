@@ -1,38 +1,59 @@
+import { useState, useEffect } from "react";
 
-export const BandList = () => {
+export const BandList = ({ data, handleVote, handleDelete }) => {
+
+    const [bands, setBands] = useState(data);
+
+    useEffect(() => {
+        setBands(data);
+    }, [data]);
+
+    const handleChangeName = (evt, id) => {
+        const name = evt.target.value;
+        setBands(bands => {
+            bands.map(band => {
+                if(band.id === id) band.name = name;
+                return name;
+            })
+        });
+    }
+
+    const handleOnBlur = band => {
+
+    }
 
     const createRows = () => {
         return (
-            <tr>
-                <td>
-                    <button className="btn btn-primary">+1</button>
-                </td>
-                <td> <input className="form-control" type="text'" /> </td>
-                <td>0</td>
-                <td>
-                    <button className="btn btn-danger">Borrar</button>
-                </td>
-            </tr>
+            bands.map(band => (
+                <tr key={band.id}>
+                    <td>
+                        <button className="btn btn-primary" onClick={() => handleVote(band.id)}>+1</button>
+                    </td>
+                    <td> <input className="form-control" type="text" value={band.name} onChange={evt => handleChangeName(evt, band.id)} onBlur={() => handleOnBlur(band)} /> </td>
+                    <td>{band.votes}</td>
+                    <td>
+                        <button type="button" className="btn btn-danger" onClick={() => handleDelete(band.id)}>Borrar</button>
+                    </td>
+                </tr>
+            ))
         );
     }
 
     return (
-        <div>
-            <table className="table table-stripped">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Nombre</th>
-                        <th>Votos</th>
-                        <th>Borrar</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        createRows()
-                    }
-                </tbody>
-            </table>
-        </div>
+        <table className="table table-stripped">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Nombre</th>
+                    <th>Votos</th>
+                    <th>Borrar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {
+                    createRows()
+                }
+            </tbody>
+        </table>
     )
 }

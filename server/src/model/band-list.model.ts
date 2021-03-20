@@ -23,14 +23,14 @@ export class BandList {
 
     public increaseVote(id: string) {
         this._bands = this._bands.map(band => {
-            if(band.getId === id) band.setVotes += 1;
+            if (band.getId === id) band.setVotes = band.getVotes + 1;
             return band;
         });
     }
 
     public changeName(id: string, name: string) {
         this._bands = this._bands.map(band => {
-            if(band.getId === id) band.setName = name;
+            if (band.getId === id) band.setName = name;
             return band;
         });
     }
