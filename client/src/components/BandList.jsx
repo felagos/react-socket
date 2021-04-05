@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export const BandList = ({ data, handleVote, handleDelete }) => {
+export const BandList = ({ data, handleVote, handleDelete, handleOnBlur }) => {
 
     const [bands, setBands] = useState(data);
 
@@ -10,16 +10,11 @@ export const BandList = ({ data, handleVote, handleDelete }) => {
 
     const handleChangeName = (evt, id) => {
         const name = evt.target.value;
-        setBands(bands => {
-            bands.map(band => {
-                if(band.id === id) band.name = name;
-                return name;
-            })
+        const newBands = bands.map(band => {
+            if (band.id === id) band.name = name;
+            return band;
         });
-    }
-
-    const handleOnBlur = band => {
-
+        setBands(newBands);
     }
 
     const createRows = () => {

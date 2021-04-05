@@ -57,6 +57,11 @@ const App = () => {
     socket.emit(SOCKET_EVENTS.ADD_BAND, name);
   }
 
+  const handleOnBlur = (band) => {
+    console.log(band)
+    socket.emit(SOCKET_EVENTS.CHAGE_NAME, band);
+  }
+
   return (
     <div className="container pt-2">
       <Alert message={alert.message} type={alert.type} />
@@ -66,7 +71,7 @@ const App = () => {
 
       <div className="row">
         <div className="col-8">
-          <BandList data={bands} handleVote={handleVote} handleDelete={handleDelete} />
+          <BandList data={bands} handleVote={handleVote} handleDelete={handleDelete} handleOnBlur={handleOnBlur} />
         </div>
 
         <div className="col-4">
