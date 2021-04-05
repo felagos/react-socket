@@ -34,6 +34,11 @@ export class Sockets {
                 this.emitAllClients();
             });
 
+            socket.on(SOCKET_EVENTS.CHAGE_NAME, (band: Band) => {
+                this._bandList.changeName(band.id, band.name);
+                this.emitAllClients();
+            });
+
         });
     }
 
