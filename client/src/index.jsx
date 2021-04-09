@@ -6,7 +6,6 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { SocketProvider } from './context/SocketContext';
 
-
 ReactDOM.render(
   <React.StrictMode>
     <SocketProvider>
