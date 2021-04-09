@@ -1,18 +1,9 @@
-import { useState, useEffect, useContext } from 'react';
+import { useContext } from 'react';
 import { SocketContext } from '../context/SocketContext';
 import { SOCKET_EVENTS } from '../helpers/event-types';
 
 export const BandList = () => {
-  const { socket } = useContext(SocketContext);
-  const [bands, setBands] = useState([]);
-
-  useEffect(() => {
-    socket.on(SOCKET_EVENTS.CURRENT_BANDS, (bands) => {
-      setBands(bands);
-    });
-
-    return () => socket.off(SOCKET_EVENTS.CURRENT_BANDS);
-  }, [socket]);
+  const { socket, bands } = useContext(SocketContext);
 
   const handleVote = (id) => {
     socket.emit(SOCKET_EVENTS.VOTE_BAND, id);
