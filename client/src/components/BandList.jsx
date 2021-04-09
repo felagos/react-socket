@@ -1,12 +1,32 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { SocketContext } from "../context/SocketContext";
+import { SOCKET_EVENTS } from '../helpers/event-types';
 
-export const BandList = ({ data, handleVote, handleDelete, handleOnBlur }) => {
+export const BandList = () => {
 
-    const [bands, setBands] = useState(data);
+    const { socket } = useContext(SocketContext);
+    const [bands, setBands] = useState([]);
 
     useEffect(() => {
-        setBands(data);
-    }, [data]);
+        socket.on(SOCKET_EVENTS.CURRENT_BANDS, bands => {
+            setBands(bands);
+        });
+
+        return () => socket.off(SOCKET_EVENTS.CURRENT_BANDS);
+
+    }, [socket]);
+
+    const handleVote = id => {
+        socket.emit(SOCKET_EVENTS.VOTE_BAND, id);
+    }
+
+    const handleDelete = id => {
+        socket.emit(SOCKET_EVENTS.DELETE_BAND, id);
+    }
+
+    const handleOnBlur = (band) => {
+        socket.emit(SOCKET_EVENTS.CHAGE_NAME, band);
+    }
 
     const handleChangeName = (evt, id) => {
         const name = evt.target.value;

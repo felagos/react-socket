@@ -1,13 +1,20 @@
-import { useRef } from "react";
+import { useContext, useRef } from "react";
+import { SocketContext } from "../context/SocketContext";
+import { SOCKET_EVENTS } from '../helpers/event-types';
 
-export const BandAdd = ({ handleAdd }) => {
+export const BandAdd = () => {
+    const { socket } = useContext(SocketContext);
     const inputRef = useRef();
 
     const onSubmit = evt => {
         evt.preventDefault();
         const { current: { value } } = inputRef;
-        if(value) handleAdd(value);
+        if (value) handleAdd(value);
         else alert("Debes ingresar un nombre !")
+    }
+
+    const handleAdd = name => {
+        socket.emit(SOCKET_EVENTS.ADD_BAND, name);
     }
 
     return (
