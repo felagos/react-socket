@@ -27,7 +27,6 @@ export class Server {
     }
 
     private middlewares() {
-        this.app.use(express.static(__dirname + "/public"));
         this.app.use(cors());
     }
 }
