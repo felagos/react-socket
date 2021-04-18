@@ -1,6 +1,7 @@
 import { Col, Row, Typography, Divider } from "antd";
 import { ListTicket } from "../components/ListTicket/ListTicket";
 import { ListTicketHistorical } from "../components/ListTicketHistorical/ListTicketHistorical";
+import { useHideMenu } from "../hooks/useHideMenu";
 import { ITicket } from "../models/ticket.model";
 
 const data: ITicket[] = [
@@ -42,6 +43,8 @@ const data: ITicket[] = [
 ];
 
 export const QueuePage = () => {
+
+    useHideMenu(false);
 
     return (
         <>

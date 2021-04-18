@@ -1,10 +1,19 @@
+import { useHistory } from "react-router";
 import { CloseCircleOutlined, RightOutlined } from "@ant-design/icons";
 import { Button, Col, Divider, Row, Typography } from "antd";
+import { useHideMenu } from "../hooks/useHideMenu";
+import { StorageHelper } from "../helper/storage.helper";
+import { IFormSigIn } from "../models/sign.model";
 
 export const DesktopPage = () => {
+    const user = StorageHelper.getItem<IFormSigIn>("user");
+    const history = useHistory();
+
+    useHideMenu(false);
 
     const handleExit = () => {
-
+        localStorage.clear();
+        history.push("/");
     }
 
     const handleNextTicket = () => {
@@ -17,7 +26,7 @@ export const DesktopPage = () => {
                 <Col span={20}>
                     <Typography.Title level={2}>Nombre</Typography.Title>
                     <Typography.Text>Usted está trabajando en el escritorio </Typography.Text>
-                    <Typography.Text type="success">5</Typography.Text>
+                    <Typography.Text type="success">{user?.escritorio}</Typography.Text>
                 </Col>
 
                 <Col span={4} className="right">
@@ -43,5 +52,5 @@ export const DesktopPage = () => {
                 </Col>
             </Row>
         </>
-    )
+    );
 }

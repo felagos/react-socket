@@ -1,13 +1,15 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
 import { App } from './App';
 import reportWebVitals from './reportWebVitals';
+import { UiProvider } from './context/UiContenxt';
 
 import 'antd/dist/antd.css';
 import './styles/global.scss';
 
 ReactDOM.render(
-  <App />,
+  <UiProvider>
+    <App />
+  </UiProvider>,
   document.getElementById('root')
 );
 
