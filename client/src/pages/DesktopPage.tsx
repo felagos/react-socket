@@ -17,7 +17,7 @@ export const DesktopPage = () => {
     }
 
     const handleNextTicket = () => {
-
+        
     }
 
     return (
